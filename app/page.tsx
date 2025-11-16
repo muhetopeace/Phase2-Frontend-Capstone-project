@@ -1,7 +1,12 @@
+'use client';
+
 import Container from '@/components/layout/Container';
 import Link from 'next/link';
+import { useAuth } from '@/lib/auth-context';
 
 export default function Home() {
+  const { user } = useAuth();
+
   return (
     <div>
       {/* Hero Section */}
@@ -16,18 +21,37 @@ export default function Home() {
               Start writing today.
             </p>
             <div className="flex gap-4 justify-center">
-              <Link 
-                href="/blog"
-                className="px-8 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
-              >
-                Start Reading
-              </Link>
-              <Link 
-                href="/about"
-                className="px-8 py-3 bg-white text-indigo-600 border-2 border-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-semibold"
-              >
-                Learn More
-              </Link>
+              {user ? (
+                <>
+                  <Link 
+                    href="/dashboard"
+                    className="px-8 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
+                  >
+                    Go to Dashboard
+                  </Link>
+                  <Link 
+                    href="/blog"
+                    className="px-8 py-3 bg-white text-indigo-600 border-2 border-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-semibold"
+                  >
+                    Browse Posts
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link 
+                    href="/signup"
+                    className="px-8 py-3 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors font-semibold"
+                  >
+                    Get Started
+                  </Link>
+                  <Link 
+                    href="/login"
+                    className="px-8 py-3 bg-white text-indigo-600 border-2 border-indigo-600 rounded-lg hover:bg-indigo-50 transition-colors font-semibold"
+                  >
+                    Sign In
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </Container>
